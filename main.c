@@ -110,7 +110,7 @@ void PrintMenu() {
 }
 
 void TaskList(int count, Tasks* task) {
-    printf("\n=====Task List=====\n\n")
+    printf("\n=====Task List=====\n\n");
     for (int i = 0; i < count; i++) {
         printf("Date: %s, Name: %s\n", task[i].date, task[i].name);
     }
@@ -121,7 +121,7 @@ void AddTask(int* count, Tasks** task, int* cap) {
 
     if (taskList == NULL) {
         printf("\nFile couldn't be opened!");
-        return 0;
+        return;
     }
 
     if (*cap <= *count){
