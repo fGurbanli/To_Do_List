@@ -3,4 +3,8 @@ project(To_Do_List C)
 
 set(CMAKE_C_STANDARD 17)
 
-add_executable(To_Do_List main.c)
+add_executable(To_Do_List main.c
+        input.c
+        input.h
+        taskFunctions.c
+        taskFunctions.h)
