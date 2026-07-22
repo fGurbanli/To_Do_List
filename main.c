@@ -12,7 +12,7 @@ int GetIntInput();
 void PrintMenu();
 void AddTask(int* count, Tasks** task, int* cap);
 void CompleteTask();
-void TaskList(int count, Tasks* task);
+void TaskList(int* count, Tasks* task);
 void SearchTask();
 void EditTask();
 void DeleteTask();
@@ -36,7 +36,9 @@ int main(void) {
         order++;
     }
 
-    if (order > maxSize) maxSize *=2;
+    rewind(taskList);
+
+    if (order > maxSize) maxSize =2 * order;
 
     Tasks* task = calloc(maxSize, sizeof(Tasks));
 
@@ -48,13 +50,32 @@ int main(void) {
     for (int i = 0; i < order; i++) {
         char temp1[100];
         char temp2[100];
-        fscanf(taskList,"%[^;];%[^;];", temp1, temp2);
+        if (fscanf(taskList," %99[^;];%99[^;];", temp1, temp2) != 2) {
+            free(task);
+            printf("\nCouldn't read file!\n");
+            fclose(taskList);
+            return 1;
+        }
 
-        task[i].date = malloc(sizeof(temp1) + 1);
-        task[i].name = malloc(sizeof(temp2) + 1);
+        task[i].date = malloc(strlen(temp1) + 1);
+        if (task[i].date == NULL) {
+            printf("\nMemory allocation failed!\n");
+            free(task);
+            fclose(taskList);
+            return 1;
+        }
 
-        strcpy(task->date, temp1);
-        strcpy(task->name, temp2);
+        task[i].name = malloc(strlen(temp2) + 1);
+        if (task[i].name == NULL) {
+            printf("\nMemory allocation failed!\n");
+            free(task[i].date);
+            free(task);
+            fclose(taskList);
+            return 1;
+        }
+
+        strcpy(task[i].date, temp1);
+        strcpy(task[i].name, temp2);
     }
 
     while (1) {
@@ -64,7 +85,7 @@ int main(void) {
         switch (option) {
             case 1:
                 printf("Opening task list...\n");
-                TaskList(order, task);
+                TaskList(&order, task);
                 break;
             case 2:
                 printf("Opening...\n");
@@ -109,9 +130,15 @@ void PrintMenu() {
     printf("\n0-Exit\n");
 }
 
-void TaskList(int count, Tasks* task) {
+void TaskList(int* count, Tasks* task) {
     printf("\n=====Task List=====\n\n");
-    for (int i = 0; i < count; i++) {
+
+    if (*count == 0) {
+        printf("\nThere is no tasks yet!\n");
+        return;
+    }
+
+    for (int i = 0; i < *count; i++) {
         printf("Date: %s, Name: %s\n", task[i].date, task[i].name);
     }
 }
@@ -126,7 +153,7 @@ void AddTask(int* count, Tasks** task, int* cap) {
 
     if (*cap <= *count){
         (*cap) *= 2;
-        Tasks* temp = realloc(task, (*cap) * sizeof(Tasks));
+        Tasks* temp = realloc(*task, (*cap) * sizeof(Tasks));
         if (temp == NULL) {
             printf("\nMemory allocation failed!\n");
             return;
@@ -134,28 +161,49 @@ void AddTask(int* count, Tasks** task, int* cap) {
         *task = temp;
     }
 
-    (*count)++;
+
 
     char temp1[100];
     char temp2[100];
 
     while (getchar() != '\n');
-    printf("Enter a date of task: \n");
-    fgets(temp1, sizeof(temp1), taskList);
+    printf("Enter a date of task: ");
+    fgets(temp1, sizeof(temp1), stdin);
+    temp1[strcspn(temp1, "\n")] = '\0';
 
-    while (getchar() != '\n');
-    printf("Enter a name of task: \n");
-    fgets(temp1, sizeof(temp1), taskList);
+    printf("Enter a name of task: ");
+    fgets(temp2, sizeof(temp2), stdin);
+    temp2[strcspn(temp2, "\n")] = '\0';
 
-    (*task)[*count].date = malloc(sizeof(temp1) + 1);
-    (*task)[*count].date = malloc(sizeof(temp2) + 1);
+
+    (*task)[*count].date = malloc(strlen(temp1) + 1);
+    if ((*task)[*count].date == NULL)
+    {
+        printf("\nMemory allocation failed!");
+        return;
+
+    }
+
+    (*task)[*count].name = malloc(strlen(temp2) + 1);
+    if ((*task)[*count].name == NULL)
+    {
+        free((*task)[*count].date);
+        printf("\nMemory allocation failed!");
+        return;
+
+    }
+
+
+
 
     strcpy((*task)[*count].date, temp1);
     strcpy((*task)[*count].name, temp2);
 
-    fprintf(taskList, "%s;%s;", temp1, temp2);
+    fprintf(taskList, "%s;%s; \n", temp1, temp2);
 
     printf("\nNew task successfully added!");
+
+    (*count)++;
 
     fclose(taskList);
 }
