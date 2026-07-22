@@ -12,7 +12,7 @@ int GetIntInput();
 void PrintMenu();
 void AddTask(int* count, Tasks** task, int* cap);
 void CompleteTask();
-void TaskList();
+void TaskList(int count, Tasks* task);
 void SearchTask();
 void EditTask();
 void DeleteTask();
@@ -64,10 +64,11 @@ int main(void) {
         switch (option) {
             case 1:
                 printf("Opening task list...\n");
+                TaskList(order, task);
                 break;
             case 2:
                 printf("Opening...\n");
-                AddTask();
+                AddTask(&order, &task, &maxSize);
                 break;
             case 3:
                 printf("Opening...\n");
@@ -108,6 +109,13 @@ void PrintMenu() {
     printf("\n0-Exit\n");
 }
 
+void TaskList(int count, Tasks* task) {
+    printf("\n=====Task List=====\n\n")
+    for (int i = 0; i < count; i++) {
+        printf("Date: %s, Name: %s\n", task[i].date, task[i].name);
+    }
+}
+
 void AddTask(int* count, Tasks** task, int* cap) {
     FILE* taskList = fopen("taskList.txt", "a");
 
@@ -146,6 +154,8 @@ void AddTask(int* count, Tasks** task, int* cap) {
     strcpy((*task)[*count].name, temp2);
 
     fprintf(taskList, "%s;%s;", temp1, temp2);
+
+    printf("\nNew task successfully added!");
 
     fclose(taskList);
 }
