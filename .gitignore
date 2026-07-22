@@ -1,0 +1,25 @@
+*.o
+*.exe
+*.out
+*.app
+build/
+dist/
+Debug/
+Release/
+main
+.vscode/
+.idea/
+*.swp
+*.swo
+*.log
+*.tmp
+*.temp
+.DS_Store          # Mac
+Thumbs.db          # Windows
+lib/
+libs/
+vgcore.*
+callgrind.out.*
+config.h
+*.json
+*.env
