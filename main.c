@@ -18,10 +18,24 @@ void EditTask();
 
 int main(void) {
 
+    PrintMenu();
 
 
     return 0;
 }
+
+void PrintMenu() {
+    printf("\n");
+    printf("====TO-DO List====\n");
+    printf("1-Task list\n");
+    printf("2-Add a new task\n");
+    printf("3-Complete a task\n");
+    printf("4-Task search\n");
+    printf("5-Edit a task\n");
+    printf("6-Delete a task\n");
+    printf("\n0-Exit\n");
+}
+
 
 int GetIntInput() {
     int input;
