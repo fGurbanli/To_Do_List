@@ -147,15 +147,16 @@ void CompleteTask(int* count, ComTask** com_task, int* cap, Tasks* task, int* or
         printf("\nEnter a valid input!");
     }
 
-    (*count)++;
-
     fprintf(completeList, "%s;%s;\n", task[input - 1].date, task[input - 1].name);
 
-    (*com_task)[*count].name = malloc(strlen(task[input-1].name)+1);
-    (*com_task)[*count].date = malloc(strlen(task[input-1].date)+1);
+    (*com_task)[*count].name = malloc(strlen(task[input - 1].name) + 1);
+    (*com_task)[*count].date = malloc(strlen(task[input - 1].date) + 1);
 
-    strcpy((*com_task)[*count].date, task[input - 1].date);
     strcpy((*com_task)[*count].name, task[input - 1].name);
+    strcpy((*com_task)[*count].date, task[input - 1].date);
+
+    (*count)++;
+
 
     FILE* taskList2 = fopen("taskList.txt", "w");
 
@@ -165,15 +166,15 @@ void CompleteTask(int* count, ComTask** com_task, int* cap, Tasks* task, int* or
         strcpy(task[i - 1].date, task[i].date);
     }
 
+    free(task[*order - 1].name);
+    free(task[*order - 1].date);
+
     (*order)--;
 
     for (int i = 0; i < *order; i++)
     {
         fprintf(taskList2,"%s;%s;\n", task[i].date, task[i].name);
     }
-
-    free(task[*order - 1].name);
-    free(task[*order - 1].date);
 
     fclose(taskList2);
     fclose(completeList);
