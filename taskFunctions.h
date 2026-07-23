@@ -18,7 +18,7 @@ typedef struct ComTask {
 void ReadFile();
 void PrintMenu();
 void AddTask(int* count, Tasks** task, int* cap);
-void CompleteTask(int* count, ComTask** com_task, int* cap);
+void CompleteTaskList(int* count, ComTask* com_task);
 void TaskList(int* count, Tasks* task);
 void SearchTask();
 void EditTask();

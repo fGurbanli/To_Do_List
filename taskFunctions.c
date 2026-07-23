@@ -12,7 +12,7 @@ void PrintMenu() {
     printf("====TO-DO List====\n");
     printf("1-Task list\n");
     printf("2-Add a new task\n");
-    printf("3-Complete a task\n");
+    printf("3-History\n");
     printf("4-Task search\n");
     printf("5-Edit a task\n");
     printf("6-Delete a task\n");
@@ -94,23 +94,12 @@ void AddTask(int* count, Tasks** task, int* cap) {
     fclose(taskList);
 }
 
-void CompleteTask(int* count, ComTask** com_task, int* cap) {
+void CompleteTaskList(int* count, ComTask* com_task) {
     FILE* completeList = fopen("completeList.txt", "a");
 
     if (completeList == NULL) {
         printf("\nFile couldn't be opened!");
         return;
-    }
-
-    if (*cap <= *count){
-        (*cap) *= 2;
-        ComTask* temp = realloc(*com_task, (*cap) * sizeof(ComTask));
-        if (temp == NULL) {
-            printf("\nMemory allocation failed!\n");
-            fclose(completeList);
-            return;
-        }
-        *com_task = temp;
     }
 
     printf("\n=====Completed Task List=====\n\n");
@@ -121,7 +110,7 @@ void CompleteTask(int* count, ComTask** com_task, int* cap) {
     }
 
     for (int i = 0; i < *count; i++) {
-        printf("Date: %s, Name: %s\n", (*com_task)[i].date,(*com_task)[i].name);
+        printf("%d-) Date: %s, Name: %s\n", i + 1,com_task[i].date,com_task[i].name);
     }
 
     fclose(completeList);

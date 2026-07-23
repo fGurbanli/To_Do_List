@@ -151,7 +151,7 @@ int main(void) {
                 break;
             case 3:
                 printf("Opening...\n");
-                CompleteTask(&completeCnt, &com_task, &maxSize);
+                CompleteTaskList(&completeCnt, com_task);
                 break;
             case 4:
                 printf("Opening...\n");
