@@ -155,11 +155,15 @@ int main(void) {
                 break;
             case 4:
                 printf("Opening...\n");
+                CompleteTask(&completeCnt, &com_task,&maxSize ,task, &order);
                 break;
             case 5:
                 printf("Opening...\n");
                 break;
             case 6:
+                printf("Opening...\n");
+                break;
+            case 7:
                 printf("Opening...\n");
                 break;
             case 0:

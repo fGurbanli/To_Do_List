@@ -13,9 +13,10 @@ void PrintMenu() {
     printf("1-Task list\n");
     printf("2-Add a new task\n");
     printf("3-History\n");
-    printf("4-Task search\n");
-    printf("5-Edit a task\n");
-    printf("6-Delete a task\n");
+    printf("4-Complete a task");
+    printf("5-Task search\n");
+    printf("6-Edit a task\n");
+    printf("7-Delete a task\n");
     printf("\n0-Exit\n");
 }
 
@@ -113,5 +114,41 @@ void CompleteTaskList(int* count, ComTask* com_task) {
         printf("%d-) Date: %s, Name: %s\n", i + 1,com_task[i].date,com_task[i].name);
     }
 
+    fclose(completeList);
+}
+
+void CompleteTask(int* count, ComTask** com_task, int* cap, Tasks* task, int* order) {
+    FILE* completeList = fopen("completeList.txt", "a");
+    FILE* taskList = fopen("taskList.txt", "a+");
+    if (completeList == NULL) {
+        printf("\nFile couldn't be opened!");
+        return;
+    }
+    if (taskList == NULL) {
+        printf("\nFile couldn't be opened!");
+        return;
+    }
+
+    if (*cap <= *count){
+        (*cap) *= 2;
+        ComTask* temp = realloc(*com_task, (*cap) * sizeof(ComTask));
+        if (temp == NULL) {
+            printf("\nMemory allocation failed!\n");
+            return;
+        }
+        *com_task = temp;
+    }
+
+    TaskList(count, task);
+
+    printf("\nEnter index of task to declare as completed: ");
+
+    while (1) {
+        int input = GetIntInput();
+        if (input > 0 && input <= *order) break;
+        printf("\nEnter a valid input!");
+    }
+
+    fclose(taskList);
     fclose(completeList);
 }
