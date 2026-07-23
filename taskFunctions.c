@@ -93,3 +93,10 @@ void AddTask(int* count, Tasks** task, int* cap) {
 
     fclose(taskList);
 }
+
+void CompleteTask() {
+    FILE* completeList = fopen("completeList.txt", "a");
+
+
+    fclose(completeList);
+}

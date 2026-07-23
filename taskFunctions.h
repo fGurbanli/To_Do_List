@@ -10,6 +10,11 @@ typedef struct Task {
     char* date;
 }Tasks;
 
+typedef struct ComTask {
+    char* name;
+    char* date;
+}ComTask;
+
 void ReadFile();
 void PrintMenu();
 void AddTask(int* count, Tasks** task, int* cap);
