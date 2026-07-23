@@ -13,7 +13,7 @@ void PrintMenu() {
     printf("1-Task list\n");
     printf("2-Add a new task\n");
     printf("3-History\n");
-    printf("4-Complete a task");
+    printf("4-Complete a task\n");
     printf("5-Task search\n");
     printf("6-Edit a task\n");
     printf("7-Delete a task\n");
@@ -29,7 +29,7 @@ void TaskList(int* count, Tasks* task) {
     }
 
     for (int i = 0; i < *count; i++) {
-        printf("Date: %s, Name: %s\n", task[i].date, task[i].name);
+        printf("%d-) Name: %s, Date: %s\n",i + 1 ,task[i].name, task[i].date);
     }
 }
 
@@ -119,12 +119,8 @@ void CompleteTaskList(int* count, ComTask* com_task) {
 
 void CompleteTask(int* count, ComTask** com_task, int* cap, Tasks* task, int* order) {
     FILE* completeList = fopen("completeList.txt", "a");
-    FILE* taskList = fopen("taskList.txt", "a+");
+
     if (completeList == NULL) {
-        printf("\nFile couldn't be opened!");
-        return;
-    }
-    if (taskList == NULL) {
         printf("\nFile couldn't be opened!");
         return;
     }
@@ -139,16 +135,46 @@ void CompleteTask(int* count, ComTask** com_task, int* cap, Tasks* task, int* or
         *com_task = temp;
     }
 
-    TaskList(count, task);
+    TaskList(order, task);
 
     printf("\nEnter index of task to declare as completed: ");
 
+    int input;
+
     while (1) {
-        int input = GetIntInput();
+        input = GetIntInput();
         if (input > 0 && input <= *order) break;
         printf("\nEnter a valid input!");
     }
 
-    fclose(taskList);
+    (*count)++;
+
+    fprintf(completeList, "%s;%s;\n", task[input - 1].date, task[input - 1].name);
+
+    (*com_task)[*count].name = malloc(strlen(task[input-1].name)+1);
+    (*com_task)[*count].date = malloc(strlen(task[input-1].date)+1);
+
+    strcpy((*com_task)[*count].date, task[input - 1].date);
+    strcpy((*com_task)[*count].name, task[input - 1].name);
+
+    FILE* taskList2 = fopen("taskList.txt", "w");
+
+    for (int i = input; i < *order; i++)
+    {
+        strcpy(task[i - 1].name, task[i].name);
+        strcpy(task[i - 1].date, task[i].date);
+    }
+
+    (*order)--;
+
+    for (int i = 0; i < *order; i++)
+    {
+        fprintf(taskList2,"%s;%s;\n", task[i].date, task[i].name);
+    }
+
+    free(task[*order - 1].name);
+    free(task[*order - 1].date);
+
+    fclose(taskList2);
     fclose(completeList);
 }
