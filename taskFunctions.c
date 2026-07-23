@@ -94,9 +94,35 @@ void AddTask(int* count, Tasks** task, int* cap) {
     fclose(taskList);
 }
 
-void CompleteTask() {
+void CompleteTask(int* count, ComTask** com_task, int* cap) {
     FILE* completeList = fopen("completeList.txt", "a");
 
+    if (completeList == NULL) {
+        printf("\nFile couldn't be opened!");
+        return;
+    }
+
+    if (*cap <= *count){
+        (*cap) *= 2;
+        ComTask* temp = realloc(*com_task, (*cap) * sizeof(ComTask));
+        if (temp == NULL) {
+            printf("\nMemory allocation failed!\n");
+            fclose(completeList);
+            return;
+        }
+        *com_task = temp;
+    }
+
+    printf("\n=====Completed Task List=====\n\n");
+
+    if (*count == 0) {
+        printf("\nThere is no task completed yet!\n");
+        return;
+    }
+
+    for (int i = 0; i < *count; i++) {
+        printf("Date: %s, Name: %s\n", (*com_task)[i].date,(*com_task)[i].name);
+    }
 
     fclose(completeList);
 }

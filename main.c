@@ -31,7 +31,7 @@ int main(void) {
         order++;
     }
 
-    while (fgets(temp, sizeof(temp), taskList) != NULL)
+    while (fgets(temp, sizeof(temp), completeList) != NULL)
     {
         completeCnt++;
     }
@@ -151,6 +151,7 @@ int main(void) {
                 break;
             case 3:
                 printf("Opening...\n");
+                CompleteTask(&completeCnt, &com_task, &maxSize);
                 break;
             case 4:
                 printf("Opening...\n");
