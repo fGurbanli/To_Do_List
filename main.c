@@ -152,6 +152,7 @@ int main(void) {
                 break;
             case 5:
                 printf("Opening...\n");
+                SearchTask(&order, task);
                 break;
             case 6:
                 printf("Opening...\n");

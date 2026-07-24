@@ -21,7 +21,7 @@ void AddTask(int* count, Tasks** task, int* cap);
 void CompleteTaskList(int* count, ComTask* com_task);
 void CompleteTask(int* count, ComTask** com_task, int* cap, Tasks* task, int* order);
 void TaskList(int* count, Tasks* task);
-void SearchTask();
+void SearchTask(int* count, Tasks* task);
 void EditTask();
 void DeleteTask(int* count, Tasks* task);
 

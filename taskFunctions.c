@@ -222,3 +222,40 @@ void DeleteTask(int* count, Tasks* task) {
     printf("\nTask deleted successfully!\n");
     fclose(taskList);
 }
+
+void SearchTask(int* count, Tasks* task) {
+    int orderLine = 0;
+    FILE* taskList = fopen("taskList.txt", "r");
+    if (taskList == NULL) {
+        printf("\nFile couldn't be opened!");
+        return;
+    }
+
+    char line[100];
+    char search[100];
+
+    printf("\nEnter a task name for search: ");
+
+    while (getchar() != '\n');
+
+    fgets(search, sizeof(search), stdin);
+
+    search[strcspn(search, "\n")] = '\0';
+
+    while (fgets(line, sizeof(line),taskList) != NULL)
+    {
+        if (strstr(line, search) != NULL){
+
+            printf("\n====Search found!====\n\n");
+            printf("Name: %s Date: %s", task[orderLine].name, task[orderLine].date);
+            fclose(taskList);
+            return;
+        }
+        orderLine++;
+    }
+
+
+    printf("\nCouldn't find any task!\n");
+
+    fclose(taskList);
+}
