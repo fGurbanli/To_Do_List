@@ -102,14 +102,7 @@ int main(void) {
     for (int i = 0; i < order; i++) {
         char temp1[100];
         char temp2[100];
-        if (fscanf(taskList," %99[^;];%99[^;];", temp1, temp2) != 2) {
-            free(task);
-            printf("\nCouldn't read file!\n");
-            fclose(taskList);
-            free(com_task);
-            fclose(completeList);
-            return 1;
-        }
+        fscanf(taskList," %99[^;];%99[^;];", temp1, temp2);
 
         task[i].date = malloc(strlen(temp1) + 1);
         if (task[i].date == NULL) {

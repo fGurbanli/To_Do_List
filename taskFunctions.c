@@ -21,12 +21,13 @@ void PrintMenu() {
 }
 
 void TaskList(int* count, Tasks* task) {
-    printf("\n=====Task List=====\n\n");
 
     if (*count == 0) {
         printf("\nThere is no tasks yet!\n");
         return;
     }
+
+    printf("\n=====Task List=====\n\n");
 
     for (int i = 0; i < *count; i++) {
         printf("%d-) Name: %s, Date: %s\n",i + 1 ,task[i].name, task[i].date);
@@ -103,12 +104,12 @@ void CompleteTaskList(int* count, ComTask* com_task) {
         return;
     }
 
-    printf("\n=====Completed Task List=====\n\n");
-
     if (*count == 0) {
         printf("\nThere is no task completed yet!\n");
         return;
     }
+
+    printf("\n=====Completed Task List=====\n\n");
 
     for (int i = 0; i < *count; i++) {
         printf("%d-) Name: %s, Date: %s\n", i + 1,com_task[i].name,com_task[i].date);
@@ -179,3 +180,4 @@ void CompleteTask(int* count, ComTask** com_task, int* cap, Tasks* task, int* or
     fclose(taskList2);
     fclose(completeList);
 }
+
