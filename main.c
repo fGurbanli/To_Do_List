@@ -156,6 +156,7 @@ int main(void) {
                 break;
             case 6:
                 printf("Opening...\n");
+                EditTask(&order, task);
                 break;
             case 7:
                 printf("Opening...\n");

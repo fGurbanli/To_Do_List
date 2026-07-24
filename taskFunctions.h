@@ -22,7 +22,7 @@ void CompleteTaskList(int* count, ComTask* com_task);
 void CompleteTask(int* count, ComTask** com_task, int* cap, Tasks* task, int* order);
 void TaskList(int* count, Tasks* task);
 void SearchTask(int* count, Tasks* task);
-void EditTask();
+void EditTask(int* count, Tasks* task);
 void DeleteTask(int* count, Tasks* task);
 
 #endif //TO_DO_LIST_TASKFUNCTIONS_H

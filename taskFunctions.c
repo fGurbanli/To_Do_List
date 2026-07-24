@@ -259,3 +259,51 @@ void SearchTask(int* count, Tasks* task) {
 
     fclose(taskList);
 }
+
+
+void EditTask(int* count, Tasks* task) {
+    TaskList(count, task);
+
+    if (*count == 0) {
+        return;
+    }
+
+    printf("\nEnter the index of task you want to edit: ");
+
+    int input;
+
+    while (1) {
+        input = GetIntInput();
+        if (input > 0 && input < *count) {
+            break;
+        }
+        printf("\nEnter a valid value!\n");
+    }
+
+    char temp1[100];
+    char temp2[100];
+
+    while (getchar() != '\n');
+
+    printf("\nEnter date of task: ");
+    fgets(temp1, sizeof(temp1), stdin);
+    strcpy(task[input - 1].date, temp1);
+    temp1[strcspn(temp1, "\n")] = '\0';
+
+    printf("\nEnter name of task of plan: ");
+    fgets(temp2, sizeof(temp2), stdin);
+    strcpy(task[input - 1].name, temp2);
+    temp2[strcspn(temp2, "\n")] = '\0';
+
+    FILE* taskList = fopen("taskList.txt", "w");
+    if (taskList == NULL) {
+        printf("\nFile couldn't be opened!\n");
+        return;
+    }
+
+    for (int i = 0; i < *count; i++) {
+        fprintf(taskList,"%s;%s; \n", task[i].date, task[i].name);
+    }
+    printf("\nFile editted successfully!\n");
+    fclose(taskList);
+}
