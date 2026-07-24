@@ -193,9 +193,32 @@ void DeleteTask(int* count, Tasks* task) {
     int input;
 
     while (1) {
-        if ((input = GetIntInput()) == 1 && input < *count) break;
-        printf("\nEnter a valid value!");
+        input = GetIntInput();
+        if (input > 0 && input < *count) {
+            break;
+        }
+        printf("\nEnter a valid value!\n");
     }
 
+    FILE* taskList = fopen("taskList.txt", "w");
 
+    if (taskList == NULL) {
+        printf("\nFile couldn't be opened!");
+        fclose(taskList);
+        return;
+    }
+
+    for (int i = input; i < *count; i++)
+    {
+        strcpy(task[i - 1].date,task[i].date);
+        strcpy(task[i - 1].name,task[i].name);
+    }
+    (*count)--;
+
+    for (int i = 0; i < *count; i++) {
+        fprintf(taskList,"%s;%s;", task[i].date, task[i].name);
+    }
+
+    printf("\nTask deleted successfully!\n");
+    fclose(taskList);
 }
