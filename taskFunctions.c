@@ -111,7 +111,7 @@ void CompleteTaskList(int* count, ComTask* com_task) {
     }
 
     for (int i = 0; i < *count; i++) {
-        printf("%d-) Date: %s, Name: %s\n", i + 1,com_task[i].date,com_task[i].name);
+        printf("%d-) Name: %s, Date: %s\n", i + 1,com_task[i].name,com_task[i].date);
     }
 
     fclose(completeList);
