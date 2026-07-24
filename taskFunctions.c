@@ -283,17 +283,17 @@ void EditTask(int* count, Tasks* task) {
     char temp1[100];
     char temp2[100];
 
-    while (getchar() != '\n');
-
     printf("\nEnter date of task: ");
+
+    while (getchar() != '\n');
     fgets(temp1, sizeof(temp1), stdin);
-    strcpy(task[input - 1].date, temp1);
     temp1[strcspn(temp1, "\n")] = '\0';
+    strcpy(task[input - 1].date, temp1);
 
     printf("\nEnter name of task of plan: ");
     fgets(temp2, sizeof(temp2), stdin);
-    strcpy(task[input - 1].name, temp2);
     temp2[strcspn(temp2, "\n")] = '\0';
+    strcpy(task[input - 1].name, temp2);
 
     FILE* taskList = fopen("taskList.txt", "w");
     if (taskList == NULL) {
