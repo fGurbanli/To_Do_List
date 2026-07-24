@@ -181,3 +181,21 @@ void CompleteTask(int* count, ComTask** com_task, int* cap, Tasks* task, int* or
     fclose(completeList);
 }
 
+void DeleteTask(int* count, Tasks* task) {
+    TaskList(count, task);
+
+    if (*count == 0) {
+        return;
+    }
+
+    printf("\nEnter the index of task you want to delete: ");
+
+    int input;
+
+    while (1) {
+        if ((input = GetIntInput()) == 1 && input < *count) break;
+        printf("\nEnter a valid value!");
+    }
+
+
+}

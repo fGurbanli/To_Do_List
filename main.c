@@ -158,6 +158,7 @@ int main(void) {
                 break;
             case 7:
                 printf("Opening...\n");
+                DeleteTask(&order, task);
                 break;
             case 0:
                 for (int i = 0; i < order; i++) {
