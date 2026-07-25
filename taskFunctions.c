@@ -138,7 +138,7 @@ void CompleteTask(int* count, ComTask** com_task, int* cap, Tasks* task, int* or
 
     TaskList(order, task);
 
-    printf("\nEnter index of task to declare as completed: (Press 0 to exit)");
+    printf("\nEnter index of task to declare as completed: (Enter 0 to exit)");
 
     int input;
 
@@ -199,10 +199,15 @@ void DeleteTask(int* count, Tasks* task) {
 
     while (1) {
         input = GetIntInput();
-        if (input > 0 && input < *count) {
+        if (input >= 0 && input < *count) {
             break;
         }
         printf("\nEnter a valid value!\n");
+    }
+
+    if (input == 0) {
+        printf("\n returning to main menu...\n");
+        return;
     }
 
     FILE* taskList = fopen("taskList.txt", "w");
