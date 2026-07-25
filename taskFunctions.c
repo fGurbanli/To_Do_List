@@ -287,13 +287,16 @@ void EditTask(int* count, Tasks* task) {
 
     while (1) {
         input = GetIntInput();
-        if (input > 0 && input < *count) {
+        if (input >= 0 && input < *count) {
             break;
         }
         printf("\nEnter a valid value!\n");
     }
 
-
+    if (input == 0) {
+        printf("\n returning to main menu...\n");
+        return;
+    }
 
     char temp1[100];
     char temp2[100];
