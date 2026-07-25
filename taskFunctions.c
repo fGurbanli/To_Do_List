@@ -236,7 +236,7 @@ void DeleteTask(int* count, Tasks* task) {
     fclose(taskList);
 }
 
-void SearchTask(int* count, Tasks* task) {
+void SearchTask(Tasks* task) {
     int orderLine = 0;
     FILE* taskList = fopen("taskList.txt", "r");
     if (taskList == NULL) {
@@ -292,6 +292,8 @@ void EditTask(int* count, Tasks* task) {
         }
         printf("\nEnter a valid value!\n");
     }
+
+
 
     char temp1[100];
     char temp2[100];
