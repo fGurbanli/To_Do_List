@@ -138,14 +138,19 @@ void CompleteTask(int* count, ComTask** com_task, int* cap, Tasks* task, int* or
 
     TaskList(order, task);
 
-    printf("\nEnter index of task to declare as completed: ");
+    printf("\nEnter index of task to declare as completed: (Press 0 to exit)");
 
     int input;
 
     while (1) {
         input = GetIntInput();
-        if (input > 0 && input <= *order) break;
+        if (input >= 0 && input <= *order) break;
         printf("\nEnter a valid input!");
+    }
+
+    if (input == 0) {
+        printf("\n returning to main menu...\n");
+        return;
     }
 
     fprintf(completeList, "%s;%s;\n", task[input - 1].date, task[input - 1].name);
@@ -214,6 +219,9 @@ void DeleteTask(int* count, Tasks* task) {
         strcpy(task[i - 1].name,task[i].name);
     }
     (*count)--;
+
+    free(task[input-1].name);
+    free(task[input-1].date);
 
     for (int i = 0; i < *count; i++) {
         fprintf(taskList,"%s;%s;", task[i].date, task[i].name);
