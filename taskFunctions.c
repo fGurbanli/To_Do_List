@@ -20,6 +20,54 @@ void PrintMenu() {
     printf("\n0-Exit\n");
 }
 
+void MainMenu(int* order, ComTask* com_task, int* maxSize, Tasks* task, int* completeCnt) {
+    while (1) {
+        PrintMenu();
+        int option = GetIntInput();
+
+        switch (option) {
+            case 1:
+                printf("Opening task list...\n");
+                TaskList(order, task);
+                break;
+            case 2:
+                printf("Opening...\n");
+                AddTask(order, &task, maxSize);
+                break;
+            case 3:
+                printf("Opening...\n");
+                CompleteTaskList(completeCnt, com_task);
+                break;
+            case 4:
+                printf("Opening...\n");
+                CompleteTask(completeCnt, &com_task,maxSize ,task, order);
+                break;
+            case 5:
+                printf("Opening...\n");
+                SearchTask(task);
+                break;
+            case 6:
+                printf("Opening...\n");
+                EditTask(order, task);
+                break;
+            case 7:
+                printf("Opening...\n");
+                DeleteTask(order, task);
+                break;
+            case 0:
+                for (int i = 0; i < *order; i++) {
+                    free(task[i].name);
+                    free(task[i].date);
+                }
+                free(task);
+                printf("Closing program...\n");
+                exit(0);
+            default:
+                printf("Enter a valid value!\n");
+        }
+    }
+}
+
 void TaskList(int* count, Tasks* task) {
 
     if (*count == 0) {
@@ -272,7 +320,6 @@ void SearchTask(Tasks* task) {
 
     fclose(taskList);
 }
-
 
 void EditTask(int* count, Tasks* task) {
     TaskList(count, task);

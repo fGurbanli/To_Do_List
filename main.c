@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "input.h"
 #include "taskFunctions.h"
 
-int main(void) {
+
+int main(void)
+{
     FILE* taskList = fopen("taskList.txt", "a+");
     FILE* completeList = fopen("completeList.txt", "a+");
 
@@ -128,53 +129,8 @@ int main(void) {
         strcpy(task[i].date, temp1);
         strcpy(task[i].name, temp2);
     }
+    fclose(taskList);
+    fclose(completeList);
 
-    while (1) {
-        PrintMenu();
-        int option = GetIntInput();
-
-        switch (option) {
-            case 1:
-                printf("Opening task list...\n");
-                TaskList(&order, task);
-                break;
-            case 2:
-                printf("Opening...\n");
-                AddTask(&order, &task, &maxSize);
-                break;
-            case 3:
-                printf("Opening...\n");
-                CompleteTaskList(&completeCnt, com_task);
-                break;
-            case 4:
-                printf("Opening...\n");
-                CompleteTask(&completeCnt, &com_task,&maxSize ,task, &order);
-                break;
-            case 5:
-                printf("Opening...\n");
-                SearchTask(&order, task);
-                break;
-            case 6:
-                printf("Opening...\n");
-                EditTask(&order, task);
-                break;
-            case 7:
-                printf("Opening...\n");
-                DeleteTask(&order, task);
-                break;
-            case 0:
-                for (int i = 0; i < order; i++) {
-                    free(task[i].name);
-                    free(task[i].date);
-                }
-                free(task);
-                printf("Closing program...\n");
-                fclose(taskList);
-                fclose(completeList);
-                exit(0);
-            default:
-                printf("Enter a valid value!\n");
-        }
-    }
+    MainMenu(&order, com_task, &maxSize, task, &completeCnt);
 }
-

@@ -40,6 +40,7 @@ A console-based To-Do List application written in **C**, featuring dynamic memor
 
     * Implements all task management operations:
 
+        * Main menu
         * Add Task
         * Delete Task
         * Edit Task

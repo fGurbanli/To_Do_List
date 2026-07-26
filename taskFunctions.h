@@ -15,7 +15,7 @@ typedef struct ComTask {
     char* date;
 }ComTask;
 
-void ReadFile();
+void MainMenu(int* order, ComTask* com_task, int* maxSize, Tasks* task, int* completeCnt);
 void PrintMenu();
 void AddTask(int* count, Tasks** task, int* cap);
 void CompleteTaskList(int* count, ComTask* com_task);
